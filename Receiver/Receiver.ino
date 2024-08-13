@@ -8,7 +8,7 @@
 #define LCD 0x5A
 #define ALL 0x55
 
-RF24 radio(16, 17);
+RF24 radio(2, 15);
 Servo left_motor, right_motor;
 
 void setup(void) {
@@ -89,8 +89,8 @@ void setup(void) {
 	Serial.println(F("\nStarting ESC calibration."));
 	NRFSendText(radio, ALL, "Starting ESC calibration.\n");
 	delay(1000);
-	left_motor.attach(4);
-	right_motor.attach(2);
+	left_motor.attach(16);
+	right_motor.attach(17);
 
 	Serial.println(F("Full throttle forward. (5s)"));
 	NRFSendText(radio, ALL, "Full throttle forward. (5s)\n");

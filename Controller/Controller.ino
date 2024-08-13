@@ -8,10 +8,10 @@
 #define FULL_THR 2000
 #define NOISE_TH 5
 
-Joystick drive(36, 39, 34, false, true, true);
-Joystick other(35, 32, 33, true, false, true);
+Joystick drive(36, 39, 25, false, true, true);
+// Joystick other(35, 32, 33, true, false, true);
 LiquidCrystal_PCF8574 display(0x27);
-RF24 radio(16, 17);
+RF24 radio(2, 15);
 
 unsigned long packet_echo_timer = -1;
 
