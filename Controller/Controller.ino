@@ -5,7 +5,7 @@
 #include "HeaderFiles/Joystick.h"
 
 #define ZERO_THR 1000
-#define FULL_THR 2000
+#define FULL_THR 1250
 #define NOISE_TH 5
 
 Joystick drive(36, 39, 25, false, true, true);

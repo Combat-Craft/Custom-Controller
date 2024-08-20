@@ -86,33 +86,43 @@ void setup(void) {
 
 	delay(1000);
 
-	Serial.println(F("\nStarting ESC calibration."));
-	NRFSendText(radio, ALL, "Starting ESC calibration.\n");
-	delay(1000);
-	left_motor.attach(16);
-	right_motor.attach(17);
+  bool static power_on_reset = true;
+  if (power_on_reset) {
+    power_on_reset = false;
 
-	Serial.println(F("Full throttle forward. (5s)"));
-	NRFSendText(radio, ALL, "Full throttle forward. (5s)\n");
-	left_motor.writeMicroseconds(FULL_THR);
-	right_motor.writeMicroseconds(FULL_THR);
-	delay(5000);
+    Serial.println(F("\nStarting ESC calibration."));
+    NRFSendText(radio, ALL, "Starting ESC calibration.\n");
+    delay(1000);
+    left_motor.attach(16);
+    right_motor.attach(17);
 
-	Serial.println(F("Decreasing throttle."));
-	NRFSendText(radio, ALL, "Desreasing throttle.\n");
-	for (int pulse_width = FULL_THR; pulse_width >= ZERO_THR; pulse_width--) {
-		left_motor.writeMicroseconds(pulse_width);
-		right_motor.writeMicroseconds(pulse_width);
-		delay(1);
-	}
+    Serial.println(F("Full throttle forward. (5s)"));
+    NRFSendText(radio, ALL, "Full throttle forward. (5s)\n");
+    left_motor.writeMicroseconds(FULL_THR);
+    right_motor.writeMicroseconds(FULL_THR);
+    delay(5000);
 
-	Serial.println(F("Full throttle reverse. (5s)"));
-	NRFSendText(radio, ALL, "Full throttle reverse. (5s)\n");
-	delay(5000);
+    Serial.println(F("Decreasing throttle."));
+    NRFSendText(radio, ALL, "Desreasing throttle.\n");
+    for (int pulse_width = FULL_THR; pulse_width >= ZERO_THR; pulse_width--) {
+      left_motor.writeMicroseconds(pulse_width);
+      right_motor.writeMicroseconds(pulse_width);
+      delay(1);
+    }
 
-	Serial.println(F("ESC calibration complete."));
-	NRFSendText(radio, ALL, "ESC calibration complete.\n");
-	delay(1000);
+    Serial.println(F("Full throttle reverse. (5s)"));
+    NRFSendText(radio, ALL, "Full throttle reverse. (5s)\n");
+    delay(5000);
+
+    Serial.println(F("ESC calibration complete."));
+    NRFSendText(radio, ALL, "ESC calibration complete.\n");
+    delay(1000);
+  } else {
+    left_motor.attach(16);
+    right_motor.attach(17);
+    left_motor.writeMicroseconds(ZERO_THR);
+    right_motor.writeMicroseconds(ZERO_THR);
+  }
 
 	Serial.println(F("\nRobot setup complete."));
 	NRFSendText(radio, ALL, "\nRobot setup complete.\n");
