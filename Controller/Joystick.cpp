@@ -4,13 +4,9 @@
 Joystick::Joystick(uint8_t xPinNumber, uint8_t yPinNumber, uint8_t btnPinNumber, bool xReversed, bool yReversed, bool btnReversed)
 : xPinNumber(xPinNumber), yPinNumber(yPinNumber), btnPinNumber(btnPinNumber), xReversed(xReversed), yReversed(yReversed), btnReversed(btnReversed) {
 	xMinimum = 0;
-  xMaximum = 4095;
-  yMinimum = 0;
-  yMaximum = 4095;
-
-  pinMode(xPinNumber, INPUT);
-  pinMode(yPinNumber, INPUT);
-  pinMode(btnPinNumber, INPUT);
+	xMaximum = 4095;
+	yMinimum = 0;
+	yMaximum = 4095;
 }
 
 uint16_t Joystick::getOriginX(void)  {return xOrigin;}
@@ -41,7 +37,6 @@ uint16_t Joystick::readValueY(void) {
 }
 
 uint8_t Joystick::readButton(void) {
-	if (btnPinNumber == 0) return LOW;
 	pinMode(btnPinNumber, INPUT);
 	uint8_t const btn_test = digitalRead(btnPinNumber);
 	if (btnReversed && (btn_test == HIGH || btn_test == LOW))
